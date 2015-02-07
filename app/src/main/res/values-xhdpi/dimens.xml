@@ -5,7 +5,7 @@
     <dimen name="button_left_marginLeft">94dp</dimen>
     <dimen name="button_left_marginStart">94dp</dimen>
     <dimen name="button_marginTop">106dp</dimen>
-    <dimen name="button_right_marginLeft">27dp</dimen>
-    <dimen name="button_right_marginStart">27dp</dimen>
-    <dimen name="button_bottom_marginTop">103dp</dimen>
+    <dimen name="button_right_marginLeft">20dp</dimen>
+    <dimen name="button_right_marginStart">20dp</dimen>
+    <dimen name="button_bottom_marginTop">53dp</dimen>
 </resources>
