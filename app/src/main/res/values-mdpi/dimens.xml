@@ -7,5 +7,5 @@
     <dimen name="button_marginTop">145dp</dimen>
     <dimen name="button_right_marginLeft">20dp</dimen>
     <dimen name="button_right_marginStart">20dp</dimen>
-    <dimen name="button_bottom_marginTop">95dp</dimen>
+    <dimen name="button_bottom_marginTop">105dp</dimen>
 </resources>
