@@ -2,10 +2,11 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="button_left_marginLeft">88dp</dimen>
-    <dimen name="button_left_marginStart">88dp</dimen>
-    <dimen name="button_marginTop">106dp</dimen>
-    <dimen name="button_right_marginLeft">19dp</dimen>
-    <dimen name="button_right_marginStart">19dp</dimen>
-    <dimen name="button_bottom_marginTop">70dp</dimen>
+
+    <!-- Button Layouts -->
+    <dimen name="button_marginTop">60dp</dimen>
+    <dimen name="button_marginBottom">60dp</dimen>
+    <dimen name="button_marginLeft">15dp</dimen>
+
+
 </resources>

@@ -9,38 +9,16 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/clockpunk_background">
-<!--
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:background="@drawable/clockpunk_element"
-            android:layout_marginLeft="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:background="@drawable/clockpunk_element"
-            android:layout_marginRight="60dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginTop="65dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
--->
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/clockpunk_frame"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            >
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -51,9 +29,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="@dimen/button_left_marginLeft"
-                android:layout_marginStart="@dimen/button_left_marginStart"
-                android:layout_marginTop="@dimen/button_marginTop" />
+                android:layout_marginBottom="@dimen/button_marginBottom" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -61,11 +37,10 @@
                 android:id="@+id/wikiButton"
                 android:onClick="wikiButtonClick"
                 android:background="@drawable/clockpunk_button"
-                android:layout_marginLeft="@dimen/button_right_marginLeft"
-                android:layout_marginStart="@dimen/button_right_marginStart"
                 android:layout_alignTop="@+id/radioButton"
                 android:layout_toRightOf="@+id/radioButton"
-                android:layout_toEndOf="@+id/radioButton" />
+                android:layout_toEndOf="@+id/radioButton"
+                android:layout_marginLeft="@dimen/button_marginLeft"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -73,9 +48,9 @@
                 android:id="@+id/ircButton"
                 android:onClick="ircButtonClick"
                 android:background="@drawable/clockpunk_button"
-                android:layout_centerVertical="true"
-                android:layout_alignLeft="@+id/calendarButton"
-                android:layout_alignStart="@+id/calendarButton" />
+                android:layout_below="@+id/radioButton"
+                android:layout_toLeftOf="@+id/wikiButton"
+                android:layout_toStartOf="@+id/wikiButton" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -83,6 +58,7 @@
                 android:id="@+id/eventsButton"
                 android:onClick="eventsButtonClick"
                 android:background="@drawable/clockpunk_button"
+                android:layout_below="@+id/wikiButton"
                 android:layout_alignTop="@+id/ircButton"
                 android:layout_alignLeft="@+id/wikiButton"
                 android:layout_alignStart="@+id/wikiButton" />
@@ -93,8 +69,8 @@
                 android:id="@+id/calendarButton"
                 android:onClick="calendarButtonClick"
                 android:background="@drawable/clockpunk_button"
-                android:layout_marginTop="@dimen/button_bottom_marginTop"
                 android:layout_below="@+id/ircButton"
+                android:layout_marginTop="@dimen/button_marginTop"
                 android:layout_alignLeft="@+id/radioButton"
                 android:layout_alignStart="@+id/radioButton" />
 
@@ -112,3 +88,124 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
+<!--
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#000000">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:src="@drawable/clockpunk_background"
+        android:scaleType="centerCrop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/clockpunk_element"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="42dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:src="@drawable/clockpunk_element"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="93dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="75dp"
+        android:gravity="center_vertical|center">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Radio"
+                android:id="@+id/btn_home_radio"
+                android:background="@drawable/clockpunk_button"
+                android:onClick="onMainMenuClick" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button3"
+                android:background="@drawable/clockpunk_button" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:background="@drawable/clockpunk_button" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button4"
+                android:background="@drawable/clockpunk_button" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button5"
+                android:background="@drawable/clockpunk_button" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button6"
+                android:background="@drawable/clockpunk_button" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/clockpunk_frame"
+        android:scaleType="fitXY"
+        android:padding="-20dp"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignBottom="@+id/imageView" />
+
+</RelativeLayout>
+
+
+-->
