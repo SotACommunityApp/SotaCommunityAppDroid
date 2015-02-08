@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.sotacommunityapp.sotacommunityapp.RadioActivity"
+    tools:context="com.sotacommunityapp.sotacommunityapp.NewsActivity"
     android:background="#000000">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_header_text"
+                android:text="@string/news_header_text"
                 android:id="@+id/textView"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -33,3 +33,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+

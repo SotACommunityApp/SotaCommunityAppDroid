@@ -5,6 +5,16 @@
     <string name="hello_world">Sota Community App Goes HERE!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_radio">RadioActivity</string>
-    <string name="radio_heading_text">Avatar\'s Radio</string>
+    <string name="title_activity_wiki">WikiActivity</string>
+    <string name="title_activity_irc">IrcActivity</string>
+    <string name="title_activity_events">EventsActivity</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_news">NewsActivity</string>
+    <string name="news_header_text">News</string>
+    <string name="radio_header_text">Avatar\'s Radio</string>
+    <string name="irc_header_text">SOTA IRC</string>
+    <string name="wiki_header_text">SOTA WIKI</string>
+    <string name="calendar_header_text">Calendar</string>
+    <string name="events_header_text">Events</string>
 
 </resources>

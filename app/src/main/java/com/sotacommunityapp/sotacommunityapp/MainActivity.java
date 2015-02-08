@@ -46,4 +46,26 @@ public class MainActivity extends ActionBarActivity {
     public void radioButtonClick(View view) {
         startActivity(new Intent(MainActivity.this, RadioActivity.class));
     }
+
+    public void wikiButtonClick(View view) {
+        startActivity(new Intent(MainActivity.this, WikiActivity.class));
+    }
+
+    public void ircButtonClick(View view) {
+        startActivity(new Intent(MainActivity.this, IrcActivity.class));
+    }
+
+    public void eventsButtonClick(View view) {
+        startActivity(new Intent(MainActivity.this, EventsActivity.class));
+    }
+
+    public void calendarButtonClick(View view) {
+        startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+    }
+
+    public void newsButtonClick(View view) {
+        startActivity(new Intent(MainActivity.this, NewsActivity.class));
+    }
+
+
 }

@@ -3,9 +3,8 @@
     package="com.sotacommunityapp.sotacommunityapp" >
 
     <application
-        android:debuggable="true"
-
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -13,8 +12,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,8 +22,47 @@
         <activity
             android:name=".RadioActivity"
             android:label="@string/title_activity_radio"
-            android:parentActivityName=".MainActivity"
-            >
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".WikiActivity"
+            android:label="@string/title_activity_wiki"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".IrcActivity"
+            android:label="@string/title_activity_irc"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".EventsActivity"
+            android:label="@string/title_activity_events"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CalendarActivity"
+            android:label="@string/title_activity_calendar"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".NewsActivity"
+            android:label="@string/title_activity_news"
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
