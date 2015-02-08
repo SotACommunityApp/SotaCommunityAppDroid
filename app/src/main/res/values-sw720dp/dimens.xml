@@ -4,8 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Button Layouts -->
-    <dimen name="button_marginTop">110dp</dimen>
-    <dimen name="button_marginBottom">110dp</dimen>
+    <dimen name="button_marginTop">85dp</dimen>
+    <dimen name="button_marginBottom">85dp</dimen>
     <dimen name="button_marginLeft">35dp</dimen>
 
 
