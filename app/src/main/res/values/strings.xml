@@ -16,5 +16,9 @@
     <string name="wiki_header_text">SOTA WIKI</string>
     <string name="calendar_header_text">Calendar</string>
     <string name="events_header_text">Events</string>
+    <string name="image_desc_frame">FrameBorder</string>
+    <string name="image_desc_pipes">BackgroundPipes</string>
+    <string name="radio_url_text">www.avatarsradio.com</string>
+    <string name="radio_playing_text">Now Playing</string>
 
 </resources>
