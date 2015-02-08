@@ -1,35 +1,90 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context="com.sotacommunityapp.sotacommunityapp.RadioActivity"
-    android:background="#000000">
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sotacommunityapp.sotacommunityapp.Screens.Radio.RadioActivity">
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/clockpunk_background">
+        android:id="@+id/background"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/clockpunk_background"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="80dp"
+        android:paddingTop="80dp"
+        android:paddingRight="80dp"
+        android:paddingBottom="90dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/clockpunk_frame">
+            android:background="#3d23051a">
 
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_toggle_play"
+                android:textOn="Stop"
+                android:textOff="Play"
+                android:onClick="onButtonClicked"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/slider_volume"
+                android:layout_above="@+id/btn_toggle_play"
+                android:layout_alignRight="@+id/btn_toggle_play"
+                android:layout_alignEnd="@+id/btn_toggle_play"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:progress="50" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_header_text"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="www.avatarsradio.com"
                 android:id="@+id/textView"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="93dp"
-                android:textColor="#ffffff"
-                android:textSize="20sp"
-                android:textIsSelectable="false" />
+                android:layout_toLeftOf="@+id/btn_toggle_play"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/slider_volume"
+                android:layout_alignParentBottom="true"
+                android:clickable="false"
+                android:autoText="false"
+                android:autoLink="web"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/txt_radio_song_title"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
+    </FrameLayout>
 
-    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView2"
+        android:src="@drawable/clockpunk_frame"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:padding="-20dp"
+        android:visibility="visible" />
 
 </RelativeLayout>
