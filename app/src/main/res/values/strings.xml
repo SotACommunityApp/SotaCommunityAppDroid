@@ -20,5 +20,11 @@
     <string name="image_desc_pipes">BackgroundPipes</string>
     <string name="radio_url_text">www.avatarsradio.com</string>
     <string name="radio_playing_text">Now Playing</string>
+    <string name="button1_desc_text">Avatars Radio</string>
+    <string name="button2_desc_text">SOTA WIKI</string>
+    <string name="button3_desc_text">SOTA IRC</string>
+    <string name="button4_desc_text">Events</string>
+    <string name="button5_desc_text">Calendar</string>
+    <string name="button6_desc_text">News</string>
 
 </resources>
