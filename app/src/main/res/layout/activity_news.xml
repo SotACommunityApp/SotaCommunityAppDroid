@@ -2,35 +2,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#000000"
     tools:context="com.sotacommunityapp.sotacommunityapp.NewsActivity"
-    android:background="#000000">
+    >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/background_pipes"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/clockpunk_background"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        android:contentDescription="@string/image_desc_pipes" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/clockpunk_background">
+        android:padding="@dimen/frame_padding"
+        android:layout_margin="@dimen/frame_margin"
+        android:gravity="center_horizontal"
+        android:background="#ab000000"
+        >
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/clockpunk_frame">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/news_header_text"
-                android:id="@+id/textView"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="93dp"
-                android:textColor="#ffffff"
-                android:textSize="20sp"
-                android:textIsSelectable="false" />
-
-        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/news_header_text"
+            android:id="@+id/header"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_title_marginTop"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/activity_title_fontSize"
+            android:textIsSelectable="false" />
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/foreground_frame"
+        android:src="@drawable/clockpunk_frame"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:visibility="visible"
+        android:contentDescription="@string/image_desc_frame" />
 
+</RelativeLayout>
