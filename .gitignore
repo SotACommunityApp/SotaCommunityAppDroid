@@ -4,13 +4,4 @@
 /.idea/libraries
 .DS_Store
 /build
-app/src/main/res/drawable-hdpi/Thumbs.db
-app/src/main/res/drawable-mdpi/Thumbs.db
-app/src/main/res/drawable-sw600dp/Thumbs.db
-app/src/main/res/drawable-xxxhdpi/Thumbs.db
-app/src/main/res/drawable-xxhdpi/Thumbs.db
-app/src/main/res/drawable-xhdpi/Thumbs.db
-app/src/main/res/drawable-sw720dp/Thumbs.db
-app/src/main/res/drawable-sw600dp/Thumbs.db
-app/src/main/res/drawable-ldpi/Thumbs.db
-app/src/main/res/drawable-xxhdpi/Thumbs.db
+Thumbs.db
