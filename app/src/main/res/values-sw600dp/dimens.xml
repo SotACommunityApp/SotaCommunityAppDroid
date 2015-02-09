@@ -2,18 +2,21 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_title_marginTop">15dp</dimen>
+    <dimen name="activity_title_fontSize">30sp</dimen>
+
+    <dimen name="frame_padding">80dp</dimen>
+    <dimen name="frame_margin">65dp</dimen>
 
     <!-- Button Layouts -->
     <dimen name="button_marginTop">90dp</dimen>
     <dimen name="button_marginBottom">90dp</dimen>
     <dimen name="button_marginLeft">40dp</dimen>
-    <dimen name="frame_padding">50dp</dimen>
-    <dimen name="frame_margin">35dp</dimen>
-    <dimen name="activity_title_marginTop">15dp</dimen>
-    <dimen name="activity_title_fontSize">20sp</dimen>
-    <dimen name="radio_playing_fontSize">18sp</dimen>
+
+    <!-- Radio Activity -->
+    <dimen name="radio_playing_fontSize">25sp</dimen>
     <dimen name="radio_playing_marginTop">62dp</dimen>
-    <dimen name="radio_seek_marginBottom">33dp</dimen>
+    <dimen name="radio_seek_marginBottom">35dp</dimen>
 
 
 </resources>
