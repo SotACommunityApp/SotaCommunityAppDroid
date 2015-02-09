@@ -24,6 +24,7 @@
         <activity
             android:name=".RadioActivity"
             android:label="@string/title_activity_radio"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -32,6 +33,7 @@
         <activity
             android:name=".WikiActivity"
             android:label="@string/title_activity_wiki"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -40,6 +42,7 @@
         <activity
             android:name=".IrcActivity"
             android:label="@string/title_activity_irc"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -48,6 +51,7 @@
         <activity
             android:name=".EventsActivity"
             android:label="@string/title_activity_events"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -56,6 +60,7 @@
         <activity
             android:name=".CalendarActivity"
             android:label="@string/title_activity_calendar"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -64,6 +69,7 @@
         <activity
             android:name=".NewsActivity"
             android:label="@string/title_activity_news"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

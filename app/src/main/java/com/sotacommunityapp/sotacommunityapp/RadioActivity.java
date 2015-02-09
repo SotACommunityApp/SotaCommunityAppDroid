@@ -61,7 +61,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
         /*All you need to do to setup Butterknife*/
