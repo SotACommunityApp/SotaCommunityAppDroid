@@ -13,18 +13,30 @@ import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.support.v4.app.NotificationCompat;
 
 import com.sotacommunityapp.sotacommunityapp.R;
 import com.sotacommunityapp.sotacommunityapp.RadioActivity;
 
+import net.moraleboost.streamscraper.ScrapeException;
+import net.moraleboost.streamscraper.Scraper;
+import net.moraleboost.streamscraper.Stream;
+import net.moraleboost.streamscraper.scraper.ShoutCastScraper;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by James Kidd on 7/02/2015.
  */
 public class RadioService extends Service implements MediaPlayer.OnPreparedListener, RadioInterface {
+
+    private static final String URL = "http://cp5.digistream.info:14102";
 
     /*Used to show notifications with track name*/
     private NotificationManager _notificationManager;
@@ -34,8 +46,10 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     /*Media Player instance*/
     private MediaPlayer _mediaPlayer;
 
-    private List<RadioListener> listeners = new ArrayList<RadioListener>();
-    private static final String URL = "http://cp5.digistream.info:14102";
+    /*Event handlers*/
+    private List<RadioListener> _listeners = new ArrayList<RadioListener>();
+
+    private Timer _timer = new Timer();
 
     public boolean isPlaying() {
         if(_mediaPlayer != null)
@@ -62,32 +76,31 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void Play() {
-
         _mediaPlayer.prepareAsync();
+        _timer.schedule(new MetaDataTask(),0,30000);
     }
 
     public void Stop() {
         if(_mediaPlayer.isPlaying())
             _mediaPlayer.stop();
+        _timer.cancel();
     }
 
     @Override
     public void addListener(RadioListener listener) {
-        listeners.add(listener);
+        _listeners.add(listener);
     }
 
     @Override
     public void removeListener(RadioListener listener) {
-        listeners.remove(listener);
+        _listeners.remove(listener);
     }
 
 
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
-        showNotification("Playing...");
-        for(RadioListener i : listeners)
-            i.onTrackTitleChanged("Playing...");
+
     }
 
 
@@ -102,22 +115,18 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         _notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         // Display a notification about us starting.  We put an icon in the status bar.
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0,
-                new Intent(getApplicationContext(), RadioActivity.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        Notification notification = new Notification();
-        notification.tickerText = "Loading";
-        notification.icon = R.drawable.ic_launcher;
-        notification.flags |= Notification.FLAG_ONGOING_EVENT;
-        notification.setLatestEventInfo(getApplicationContext(), "Avatar Radio",
-                "Loading....:", pi);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, RadioActivity.class), 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Notification notification =  builder.setContentText("Loading...").setContentTitle("Avatar's Radio").setContentIntent(contentIntent).setSmallIcon(R.drawable.ic_launcher).build();
         startForeground(NOTIFICATION, notification);
+
         if(_mediaPlayer == null) {
             _mediaPlayer = new MediaPlayer();
             _mediaPlayer.setOnPreparedListener(this);
             _mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
             _wifiLock = ((WifiManager) getSystemService(Context.WIFI_SERVICE))
-                    .createWifiLock(WifiManager.WIFI_MODE_FULL, "mylock");
+                    .createWifiLock(WifiManager.WIFI_MODE_FULL, "sota_radio_lock");
 
             _wifiLock.acquire();
             //setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -149,7 +158,11 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         _mediaPlayer.release();
         _mediaPlayer = null;
         _wifiLock.release();
-        listeners.clear();
+        _listeners.clear();
+        _timer.cancel();
+        _timer.purge();
+
+
         // Tell the user we stopped.
     }
 
@@ -166,21 +179,43 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
      * Show a notification while this service is running.
      */
     private void showNotification(String text) {
-        // In this sample, we'll use the same text for the ticker and the expanded notification
 
-        // Set the icon, scrolling text and timestamp
-        Notification notification = new Notification(R.drawable.ic_launcher, text,
-                System.currentTimeMillis());
-
-        // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, RadioActivity.class), 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Notification notification =  builder.setContentText(text).setContentTitle("Avatar's Radio").setContentIntent(contentIntent).setSmallIcon(R.drawable.ic_launcher).build();
 
-        // Set the info for the views that show in the notification panel.
-        notification.setLatestEventInfo(this, "Avatar's Radio",
-                text, contentIntent);
 
         // Send the notification.
         _notificationManager.notify(NOTIFICATION, notification);
     }
+
+
+    private class MetaDataTask extends TimerTask {
+        private Scraper _scraper = new ShoutCastScraper();
+        private Stream _stream;
+        @Override
+        public void run() {
+            //grab meta data
+            if(_stream == null) {
+                try {
+                    List<Stream> streams = _scraper.scrape(new URI(URL));
+                    if(streams.size() == 0)
+                        return;
+                    streams = _scraper.scrape(new URI(URL));
+                    _stream = streams.get(0);
+                } catch (ScrapeException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+                String title = _stream.getCurrentSong();
+                for(RadioListener i : _listeners)
+                    i.onTrackTitleChanged("Playing: " + title);
+                showNotification("Playing: " + title);
+        }
+
+    }
+
 }

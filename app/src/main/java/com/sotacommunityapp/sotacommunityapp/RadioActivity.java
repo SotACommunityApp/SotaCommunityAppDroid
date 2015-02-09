@@ -4,11 +4,7 @@ package com.sotacommunityapp.sotacommunityapp;
         import android.content.Context;
         import android.content.Intent;
         import android.content.ServiceConnection;
-        import android.media.AudioManager;
-        import android.media.MediaPlayer;
-        import android.net.Uri;
         import android.os.IBinder;
-        import android.provider.MediaStore;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
         import android.view.Menu;
@@ -18,15 +14,11 @@ package com.sotacommunityapp.sotacommunityapp;
         import android.widget.SeekBar;
         import android.widget.TextView;
         import android.widget.ToggleButton;
-
-        import com.sotacommunityapp.sotacommunityapp.R;
         import com.sotacommunityapp.sotacommunityapp.Radio.RadioListener;
         import com.sotacommunityapp.sotacommunityapp.Radio.RadioService;
-
-        import java.io.IOException;
-
         import butterknife.ButterKnife;
         import butterknife.InjectView;
+
 /**
  * Created by James Kidd on 7/02/2015.
  */
@@ -50,6 +42,8 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         public void onServiceConnected(ComponentName name, IBinder service) {
             _radioService = ((RadioService.LocalBinder)service).getService();
             _radioService.addListener(RadioActivity.this);
+            if(_radioService.isPlaying())
+                _btnPlayStop.toggle();
         }
 
         @Override
@@ -154,7 +148,13 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
     }
 
     @Override
-    public void onTrackTitleChanged(String title) {
-        _txtSongTitle.setText(title);
+    public void onTrackTitleChanged(final String title) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                _txtSongTitle.setText(title);
+            }
+        });
+
     }
 }
