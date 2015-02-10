@@ -39,14 +39,14 @@
             android:textSize="@dimen/activity_title_fontSize"
             android:textIsSelectable="false" />
 
-
-        <TextView
-            android:id="@+id/rss_feed"
-            android:text="RSS GOES HERE"
-            android:textColor="#ffffff"
+        <ListView
+            android:id="@+id/rssChannelListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textColor="#ffffff">
+        </ListView>
+
 
     </RelativeLayout>
 

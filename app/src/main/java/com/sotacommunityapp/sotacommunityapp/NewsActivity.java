@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sotacommunityapp.sotacommunityapp.saxrssreader.ListListener;
 import com.sotacommunityapp.sotacommunityapp.saxrssreader.RssFeed;
 import com.sotacommunityapp.sotacommunityapp.saxrssreader.RssItem;
 import com.sotacommunityapp.sotacommunityapp.saxrssreader.RssReader;
@@ -27,7 +30,7 @@ public class NewsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        TextView txtTitle = (TextView) findViewById(R.id.rss_feed);
+        ListView rssListView = (ListView) findViewById(R.id.rssChannelListView);
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -42,16 +45,21 @@ public class NewsActivity extends ActionBarActivity {
         RssFeed feed = null;
         try {
             feed = RssReader.read(url);
+            ArrayAdapter adapter = new ArrayAdapter<RssItem>(this,android.R.layout.simple_list_item_1, feed.getRssItems());
+            rssListView.setAdapter(adapter);
+            rssListView.setOnItemClickListener(new ListListener(feed.getRssItems(), this));
         } catch (SAXException e) { e.printStackTrace();
         } catch (IOException e) { e.printStackTrace(); }
 
+        /*
+        TextView txtTitle = (TextView) findViewById(R.id.rss_feed);
         ArrayList<RssItem> rssItems = feed.getRssItems();
         for(RssItem rssItem : rssItems) {
             Log.i("RSS Reader", rssItem.getTitle());
-            txtTitle.setText(rssItem.getTitle());
+            txtTitle.append(rssItem.getTitle() + " --- ");
         }
+        */
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,66 +83,3 @@ public class NewsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-/*
-
-package com.example.rssfeed;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import nl.matshofman.saxrssreader.RssFeed;
-import nl.matshofman.saxrssreader.RssItem;
-import nl.matshofman.saxrssreader.RssReader;
-import org.xml.sax.SAXException;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
-import android.widget.TextView;
-
-public class MainActivity extends Activity {
-
-
-    private TextView txtTitle;
-
-
- @SuppressLint("NewApi")
-
- @Override
- protected void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-  setContentView(R.layout.activity_main);
-
-        txtTitle = (TextView)findViewById(R.id.txtTitle);
-
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
-        URL url = null;
-        try {
-            url = new URL("http://www.vogella.com/article.rss");
-        } catch (MalformedURLException e) { e.printStackTrace(); }
-
-        RssFeed feed = null;
-        try {
-            feed = RssReader.read(url);
-        } catch (SAXException e) { e.printStackTrace();
-        } catch (IOException e) { e.printStackTrace(); }
-
-        ArrayList<RssItem> rssItems = feed.getRssItems();
-        for(RssItem rssItem : rssItems) {
-            Log.i("RSS Reader", rssItem.getTitle());
-            txtTitle.setText(rssItem.getTitle());
-        }
-
-
-
-
- }
-}
-
- */

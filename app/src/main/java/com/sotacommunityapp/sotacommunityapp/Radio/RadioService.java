@@ -118,7 +118,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, RadioActivity.class), 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        Notification notification =  builder.setContentText("Loading...").setContentTitle("Avatar's Radio").setContentIntent(contentIntent).setSmallIcon(R.drawable.ic_launcher).build();
+        Notification notification =  builder.setContentText("Loading...").setContentTitle("Avatar's Radio").setContentIntent(contentIntent).setSmallIcon(R.drawable.ic_stat_notify).build();
         startForeground(NOTIFICATION, notification);
 
         if(_mediaPlayer == null) {
