@@ -3,6 +3,7 @@ package com.sotacommunityapp.sotacommunityapp.saxrssreader;
 /**
  * Created by umbrae on 2/9/2015.
  */
+import java.util.ArrayList;
 import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,10 +20,10 @@ import com.sotacommunityapp.sotacommunityapp.saxrssreader.RssItem;
 
 public class ListListener implements OnItemClickListener {
 
-    List<RssItem> listItems;
+    ArrayList<RssItem> listItems;
     Activity activity;
 
-    public ListListener(List<RssItem> aListItems, Activity anActivity) {
+    public ListListener(ArrayList<RssItem> aListItems, Activity anActivity) {
         listItems = aListItems;
         activity  = anActivity;
     }
