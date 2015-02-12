@@ -29,9 +29,9 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton"
-                android:onClick="radioButtonClick"
-                android:background="@drawable/clockpunk_button"
+                android:id="@+id/button1"
+                android:onClick="newsButtonClick"
+                android:background="@drawable/clockpunk_button1"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -41,12 +41,12 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/wikiButton"
-                android:onClick="wikiButtonClick"
-                android:background="@drawable/clockpunk_button"
-                android:layout_alignTop="@+id/radioButton"
-                android:layout_toRightOf="@+id/radioButton"
-                android:layout_toEndOf="@+id/radioButton"
+                android:id="@+id/button2"
+                android:onClick="radioButtonClick"
+                android:background="@drawable/clockpunk_button2"
+                android:layout_alignTop="@+id/button1"
+                android:layout_toRightOf="@+id/button1"
+                android:layout_toEndOf="@+id/button1"
                 android:layout_marginLeft="@dimen/button_marginLeft"
                 android:layout_marginStart="@dimen/button_marginLeft"
                 android:contentDescription="@string/button2_desc_text" />
@@ -54,60 +54,62 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ircButton"
+                android:id="@+id/button3"
                 android:onClick="ircButtonClick"
-                android:background="@drawable/clockpunk_button"
-                android:layout_below="@+id/radioButton"
-                android:layout_toLeftOf="@+id/wikiButton"
-                android:layout_toStartOf="@+id/wikiButton"
+                android:background="@drawable/clockpunk_button3"
+                android:layout_below="@+id/button1"
+                android:layout_toLeftOf="@+id/button2"
+                android:layout_toStartOf="@+id/button2"
                 android:contentDescription="@string/button3_desc_text" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/eventsButton"
-                android:onClick="eventsButtonClick"
-                android:background="@drawable/clockpunk_button"
-                android:layout_below="@+id/wikiButton"
-                android:layout_alignTop="@+id/ircButton"
-                android:layout_alignLeft="@+id/wikiButton"
-                android:layout_alignStart="@+id/wikiButton"
+                android:id="@+id/button4"
+                android:onClick="wikiButtonClick"
+                android:background="@drawable/clockpunk_button4"
+                android:layout_below="@+id/button2"
+                android:layout_alignTop="@+id/button3"
+                android:layout_alignLeft="@+id/button2"
+                android:layout_alignStart="@+id/button2"
                 android:contentDescription="@string/button4_desc_text" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/calendarButton"
+                android:id="@+id/button5"
                 android:onClick="calendarButtonClick"
-                android:background="@drawable/clockpunk_button"
-                android:layout_below="@+id/ircButton"
+                android:background="@drawable/clockpunk_button5"
+                android:layout_below="@+id/button3"
                 android:layout_marginTop="@dimen/button_marginTop"
-                android:layout_alignLeft="@+id/radioButton"
-                android:layout_alignStart="@+id/radioButton"
+                android:layout_alignLeft="@+id/button1"
+                android:layout_alignStart="@+id/button1"
                 android:contentDescription="@string/button5_desc_text" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/newsButton"
-                android:onClick="newsButtonClick"
-                android:background="@drawable/clockpunk_button"
-                android:layout_alignTop="@+id/calendarButton"
-                android:layout_alignLeft="@+id/eventsButton"
-                android:layout_alignStart="@+id/eventsButton"
-                android:contentDescription="@string/button6_desc_text" />
-    </RelativeLayout>
+                android:id="@+id/button6"
+                android:onClick="eventsButtonClick"
+                android:background="@drawable/clockpunk_button6"
+                android:contentDescription="@string/button6_desc_text"
+                android:layout_alignBottom="@+id/button5"
+                android:layout_alignLeft="@+id/button4"
+                android:layout_toRightOf="@+id/button5"
+                android:layout_toEndOf="@+id/button5" />
+
+        </RelativeLayout>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/foreground_frame"
-        android:src="@drawable/clockpunk_frame"
-        android:scaleType="fitXY"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:visibility="visible"
-        android:contentDescription="@string/image_desc_frame" />
-
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/foreground_frame"
+            android:src="@drawable/clockpunk_frame"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:visibility="visible"
+            android:contentDescription="@string/image_desc_frame"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 </RelativeLayout>

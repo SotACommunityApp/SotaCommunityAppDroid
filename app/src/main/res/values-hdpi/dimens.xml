@@ -11,7 +11,7 @@
     <!-- Button Layouts -->
     <dimen name="button_marginTop">50dp</dimen>
     <dimen name="button_marginBottom">50dp</dimen>
-    <dimen name="button_marginLeft">0dp</dimen>
+    <dimen name="button_marginLeft">5dp</dimen>
 
     <!-- Radio Activity -->
     <dimen name="radio_playing_fontSize">18sp</dimen>
