@@ -4,8 +4,12 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_title_marginTop">15dp</dimen>
     <dimen name="activity_title_fontSize">20sp</dimen>
+
     <dimen name="frame_padding">50dp</dimen>
     <dimen name="frame_margin">35dp</dimen>
+
+    <dimen name="gears_marginTop">165dp</dimen>
+    <dimen name="gears_paddingRight">45dp</dimen>
 
     <!-- Button Layouts -->
     <dimen name="button_marginTop">60dp</dimen>

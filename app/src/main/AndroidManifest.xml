@@ -48,8 +48,8 @@
                 android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
         </activity>
         <activity
-            android:name=".EventsActivity"
-            android:label="@string/title_activity_events"
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map"
             android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
             <meta-data

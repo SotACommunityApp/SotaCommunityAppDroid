@@ -26,5 +26,8 @@
     <string name="button4_desc_text">Events</string>
     <string name="button5_desc_text">Calendar</string>
     <string name="button6_desc_text">News</string>
+    <string name="image_desc_gears">Gears</string>
+    <string name="title_activity_map">Map</string>
+    <string name="map_header_text">Map</string>
 
 </resources>

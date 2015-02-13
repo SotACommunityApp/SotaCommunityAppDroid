@@ -8,6 +8,9 @@
     <dimen name="frame_padding">80dp</dimen>
     <dimen name="frame_margin">65dp</dimen>
 
+    <dimen name="gears_marginTop">300dp</dimen>
+    <dimen name="gears_paddingRight">65dp</dimen>
+
     <!-- Button Layouts -->
     <dimen name="button_marginTop">90dp</dimen>
     <dimen name="button_marginBottom">90dp</dimen>

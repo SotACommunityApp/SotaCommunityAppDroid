@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.sotacommunityapp.sotacommunityapp.EventsActivity"
+    tools:context="com.sotacommunityapp.sotacommunityapp.MapActivity"
     android:background="#000000">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/events_header_text"
+                android:text="@string/map_header_text"
                 android:id="@+id/textView"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
