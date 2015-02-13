@@ -91,6 +91,7 @@ public class NewsActivity extends Activity {
                         Toast.LENGTH_SHORT).show();
             }
             waitSpinner.hide();
+            waitSpinner.dismiss();
         }
 
     }
