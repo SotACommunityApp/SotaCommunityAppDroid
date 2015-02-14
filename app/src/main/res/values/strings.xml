@@ -29,5 +29,6 @@
     <string name="image_desc_gears">Gears</string>
     <string name="title_activity_map">Map</string>
     <string name="map_header_text">Map</string>
+    <string name="map_desc">Novia Map</string>
 
 </resources>

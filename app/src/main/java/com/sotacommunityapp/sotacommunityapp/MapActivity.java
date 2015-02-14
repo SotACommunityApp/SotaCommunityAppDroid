@@ -1,17 +1,25 @@
 package com.sotacommunityapp.sotacommunityapp;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.sotacommunityapp.sotacommunityapp.Map.TouchImageView;
 
-public class MapActivity extends ActionBarActivity {
+
+public class MapActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        TouchImageView img = (TouchImageView) findViewById(R.id.mapView);
+        img.setImageResource(R.drawable.novia_map);
+        img.setMaxZoom(4f);
+
+        //setContentView(img);
     }
 
 
