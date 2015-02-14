@@ -42,7 +42,8 @@
             android:name=".IrcActivity"
             android:label="@string/title_activity_irc"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />

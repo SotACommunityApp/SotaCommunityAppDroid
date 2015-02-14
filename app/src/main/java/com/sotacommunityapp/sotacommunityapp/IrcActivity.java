@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -33,9 +35,9 @@ public class IrcActivity extends Activity {
         WebSettings webSettings = iWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-
         iWebView.loadUrl("https://kiwiirc.com/client/irc.ultimacodex.com/?nick=Citizen?&theme=mini#sota");
         IrcActivity.this.loading.setProgress(0);
+
     }
 
     private class MyWebViewClient extends WebViewClient {
