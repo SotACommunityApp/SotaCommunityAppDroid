@@ -3,10 +3,13 @@ package com.sotacommunityapp.sotacommunityapp;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+
 
 
 public class MainActivity extends ActionBarActivity {
@@ -58,7 +61,5 @@ public class MainActivity extends ActionBarActivity {
     public void mapButtonClick(View view) {
         startActivity(new Intent(MainActivity.this, MapActivity.class));
     }
-
-
 
 }

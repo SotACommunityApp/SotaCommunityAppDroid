@@ -5,31 +5,31 @@
     tools:context="com.sotacommunityapp.sotacommunityapp.WikiActivity"
     android:background="#000000">
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/clockpunk_background">
+        android:id="@+id/background_pipes"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/clockpunk_background"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        android:contentDescription="@string/image_desc_pipes" />
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/clockpunk_frame">
+    <WebView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/wikiWebView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/wiki_header_text"
-                android:id="@+id/textView"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="93dp"
-                android:textColor="#ffffff"
-                android:textSize="20sp"
-                android:textIsSelectable="false" />
-
-        </RelativeLayout>
-
-    </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/webloading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
+
