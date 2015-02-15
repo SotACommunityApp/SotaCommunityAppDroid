@@ -10,7 +10,7 @@
     <string name="title_activity_events">EventsActivity</string>
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="title_activity_news">NewsActivity</string>
-    <string name="news_header_text">News</string>
+    <string name="news_header_text">Avatars Portal News</string>
     <string name="radio_header_text">Avatar\'s Radio</string>
     <string name="irc_header_text">SOTA IRC</string>
     <string name="wiki_header_text">SOTA WIKI</string>

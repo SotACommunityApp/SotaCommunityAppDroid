@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<color name="divider_color">#FF656565</color>
+<color name="divider_color">#532313</color>
+<color name="news_selector_color">#ff90c7ff</color>
 
 </resources>

@@ -33,6 +33,7 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 	private Date pubDate;
 	private String description;
 	private String content;
+    private String creator;
 
 	public RssItem() {
 		
@@ -47,7 +48,7 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 		description = data.getString("description");
 		content = data.getString("content");
 		feed = data.getParcelable("feed");
-		
+        creator = data.getString("creator");
 	}
 
 	@Override
@@ -60,6 +61,7 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 		data.putString("description", description);
 		data.putString("content", content);
 		data.putParcelable("feed", feed);
+        data.putString("creator", creator);
 		dest.writeBundle(data);
 	}
 	
@@ -86,12 +88,12 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 	}
 
 	public String getTitle() {
-		return title;
-	}
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
 	public String getLink() {
 		return link;
@@ -133,6 +135,14 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
 	@Override
 	public int compareTo(RssItem another) {

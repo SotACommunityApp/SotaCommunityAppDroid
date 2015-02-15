@@ -3,9 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_title_marginTop">5dp</dimen>
-    <dimen name="activity_title_fontSize">20sp</dimen>
+    <dimen name="activity_title_fontSize">10sp</dimen>
 
-    <dimen name="frame_padding">50dp</dimen>
+    <dimen name="frame_padding">40dp</dimen>
     <dimen name="frame_margin">45dp</dimen>
 
     <dimen name="gears_marginTop">210dp</dimen>
@@ -20,5 +20,7 @@
     <dimen name="radio_playing_fontSize">18sp</dimen>
     <dimen name="radio_playing_marginTop">62dp</dimen>
     <dimen name="radio_seek_marginBottom">33dp</dimen>
+    <dimen name="news_list_margin">5dp</dimen>
+    <dimen name="news_tag_textsize">10sp</dimen>
 
 </resources>

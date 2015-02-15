@@ -29,7 +29,7 @@ public class RssFeed implements Parcelable {
 	private String description;
 	private String language;
 	private ArrayList<RssItem> rssItems;
-	
+
 	public RssFeed() {
 		rssItems = new ArrayList<RssItem>();
 	}
@@ -42,7 +42,7 @@ public class RssFeed implements Parcelable {
 		description = data.getString("description");
 		language = data.getString("language");
 		rssItems = data.getParcelableArrayList("rssItems");
-		
+
 	}
 
 	@Override
@@ -113,5 +113,5 @@ public class RssFeed implements Parcelable {
 
 	public void setRssItems(ArrayList<RssItem> rssItems) {
 		this.rssItems = rssItems;
-	} 
+	}
 }

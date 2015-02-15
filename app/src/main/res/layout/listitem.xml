@@ -3,14 +3,25 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:background="#CE000000"
     >
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="1"
+        android:layout_marginTop="@dimen/news_list_margin"
+        android:text="This is a test title"
         android:textColor="#ffffff"/>
+
+    <TextView
+        android:id="@+id/textTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/news_list_margin"
+        android:text="sometime @ somedate"
+        android:textColor="#d7981f"
+        android:textSize="@dimen/news_tag_textsize"
+        android:layout_gravity="right"/>
 
 </LinearLayout>
