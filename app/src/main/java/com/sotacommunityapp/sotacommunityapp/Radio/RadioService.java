@@ -14,6 +14,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.sotacommunityapp.sotacommunityapp.R;
 import com.sotacommunityapp.sotacommunityapp.RadioActivity;
@@ -49,7 +50,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     /*Event handlers*/
     private List<RadioListener> _listeners = new ArrayList<RadioListener>();
 
-    private Timer _timer = new Timer();
+    private Timer _timer;
 
     public boolean isPlaying() {
         if(_mediaPlayer != null)
@@ -77,6 +78,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
 
     public void Play() {
         _mediaPlayer.prepareAsync();
+        _timer = new Timer();
         _timer.schedule(new MetaDataTask(),0,30000);
     }
 
@@ -183,7 +185,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, RadioActivity.class), 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        Notification notification =  builder.setContentText(text).setContentTitle("Avatar's Radio").setContentIntent(contentIntent).setSmallIcon(R.drawable.ic_launcher).build();
+        Notification notification =  builder.setContentText(text).setContentTitle("Avatar's Radio").setContentIntent(contentIntent).setSmallIcon(R.drawable.ic_stat_notify).build();
 
 
         // Send the notification.
@@ -197,6 +199,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         @Override
         public void run() {
             //grab meta data
+            Log.e("Radio Meta Data", "Running");
             if(_stream == null) {
                 try {
                     List<Stream> streams = _scraper.scrape(new URI(URL));
@@ -211,6 +214,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
                 }
             }
                 String title = _stream.getCurrentSong();
+                Log.e("Radio Meta Data", title);
                 for(RadioListener i : _listeners)
                     i.onTrackTitleChanged("Playing: " + title);
                 showNotification("Playing: " + title);
