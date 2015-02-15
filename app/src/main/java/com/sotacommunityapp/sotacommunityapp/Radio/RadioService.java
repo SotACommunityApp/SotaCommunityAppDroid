@@ -1,10 +1,8 @@
 package com.sotacommunityapp.sotacommunityapp.Radio;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +14,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.sotacommunityapp.sotacommunityapp.R;
 import com.sotacommunityapp.sotacommunityapp.RadioActivity;
@@ -29,10 +27,7 @@ import net.moraleboost.streamscraper.scraper.ShoutCastScraper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -135,6 +130,19 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCreate() {
+        Intent resultIntent = new Intent(this, RadioActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack
+        stackBuilder.addParentStack(RadioActivity.class);
+        // Adds the Intent to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        // Gets a PendingIntent containing the entire back stack
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentIntent(resultPendingIntent);
+
         _notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         if(_mediaPlayer == null) {
