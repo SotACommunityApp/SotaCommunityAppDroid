@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.xml.sax.SAXException;
-
 import com.sotacommunityapp.sotacommunityapp.saxrssreader.ListListener;
 import com.sotacommunityapp.sotacommunityapp.saxrssreader.RssFeed;
 import com.sotacommunityapp.sotacommunityapp.saxrssreader.RssItem;
@@ -24,10 +23,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Environment;
-import android.text.format.DateFormat;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +53,7 @@ public class NewsActivity extends Activity {
         waitSpinner.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         listRSSItems = (ListView) findViewById(R.id.rssChannelListView);
+
         new GetRSSFeed().execute();
     }
 
@@ -77,7 +77,11 @@ public class NewsActivity extends Activity {
                     InputStream rssIs = new FileInputStream(rssPath);
                     feed = RssReader.read(rssIs);
                 } else {
-                    waitSpinner.show();
+                    Handler h = new Handler(Looper.getMainLooper());
+                    h.post(new Runnable() {
+                        public void run() { waitSpinner.show(); }
+                    });
+
                     String rssResult = refreshFeed();
                     if (rssResult == "Success") {
                         InputStream rssIs = new FileInputStream(rssPath);
