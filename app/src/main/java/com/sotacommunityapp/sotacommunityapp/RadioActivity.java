@@ -40,6 +40,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
     /*Music service refrence*/
     private RadioService _radioService;
     private boolean _bound;
+    private static boolean _playing = false;
 
     /*Service connection*/
     private ServiceConnection _connection = new ServiceConnection() {
@@ -64,13 +65,10 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         setContentView(R.layout.activity_radio);
         /*All you need to do to setup Butterknife*/
         ButterKnife.inject(this);
-        _txtRadioTitle.setText("");
-        _txtRadioArtist.setText("");
 
         /*Spefically request the service to start to ensure it's not tied this this activity*/
         getApplicationContext().startService(new Intent(this,RadioService.class));
         bindService();
-
         /*Setup vol control*/
         _volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -85,7 +83,17 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
+
+        if (_playing) {
+            onRadioChanged(true);
+            onTrackTitleChanged("Loading...","");
+        } else {
+            onRadioChanged(false);
+            onTrackTitleChanged("", "");
+        }
+
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -115,13 +123,20 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
             bindService();
             return;
         }
-        if(_radioService.isPlaying())
+        if(_radioService.isPlaying()) {
             _radioService.Stop();
-        else{
+            _playing = false;
+            onRadioChanged(false);
+            onTrackTitleChanged("", "");
+        } else {
             _radioService.Play();
+            _playing = true;
+            onRadioChanged(true);
+            onTrackTitleChanged("Loading...","");
         }
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -145,7 +160,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
     }
 
     @Override
-    public void onTrackTitleChanged(final String title, final String artist, final boolean state) {
+    public void onTrackTitleChanged(final String title, final String artist) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -155,6 +170,14 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
                 if (_txtRadioArtist.getText() != artist) {
                     _txtRadioArtist.setText(artist);
                 }
+            }
+        });
+    }
+    @Override
+    public void onRadioChanged(final boolean state) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
                 if (state) {
                     if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_on)) {
                         _txtRadioState.setText(R.string.radio_playing_text_on);

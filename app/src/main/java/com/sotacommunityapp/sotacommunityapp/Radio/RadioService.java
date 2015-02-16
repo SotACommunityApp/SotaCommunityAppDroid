@@ -80,18 +80,19 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     public void Play() {
         try { _mediaPlayer.setDataSource(this, Uri.parse(scURL));
         } catch (IOException e) { e.printStackTrace(); }
-
         _mediaPlayer.prepareAsync();
         _wifiLock.acquire();
         _timer = new Timer();
-        _timer.schedule(new MetaDataTask(),0,15000);
+        _timer.schedule(new MetaDataTask(),0,10000);
     }
 
     public void Stop() {
         if(_mediaPlayer.isPlaying()) {
             _mediaPlayer.stop();
-            for(RadioListener i : _listeners)
-                    i.onTrackTitleChanged("", "", false);
+            for(RadioListener i : _listeners) {
+                i.onTrackTitleChanged("", "");
+                i.onRadioChanged(false);
+            }
             showNotification("] Not Playing");
         }
         _mediaPlayer.reset();
@@ -203,13 +204,19 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
                 }
 
                 String[] metaData = new String(bytes).trim().split(";");
+                Log.w("Song Title", ": " + metaData[0]);
                 if (metaData.length > 1) {
-                    outMd = metaData[1];
+                    Log.w("Song Url", ": " + metaData[1]);
+                    if (metaData[1].trim().contains("&artist=") && metaData[1].trim().contains("&title=")) {
+                        outMd = metaData[1];
+                    } else {
+                        outMd = metaData[0];
+                    }
                 } else {
                     outMd = metaData[0];
                 }
 
-                Log.w("Radio Data", "Song Info: " + outMd);
+                Log.w("Chosen Song", ": " + outMd);
                 mdIs.close();
 
             } catch (MalformedURLException e) { e.printStackTrace();
@@ -229,22 +236,30 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
                     Uri uriMd = Uri.parse("http://sotacommapp.com/?" + outMd);
                     title = uriMd.getQueryParameter("title");
                     artist = uriMd.getQueryParameter("artist");
-                } catch (Exception e) { e.printStackTrace(); }
+                } catch (Exception e) { title = "No Song Metadata"; e.printStackTrace(); }
             }
             if ((title == null || title.isEmpty()) && (outMd != null && outMd.contains("StreamTitle"))) {
                 try {
-                    String[] arrMd = outMd.replace("StreamTitle=", "").split("-");
-                    title = arrMd[0].trim();
-                    try {
-                        artist = arrMd[1].trim();
-                    } catch (Exception e) { e.printStackTrace(); }
+                    if (outMd.trim().equals("StreamTitle=")) {
+                        title = "No Song Metadata";
+                        artist = "";
+                    } else {
+                        String[] arrMd = outMd.replace("StreamTitle=", "").split("-");
+                        title = arrMd[0].trim();
+                        try {
+                            artist = arrMd[1].trim();
+                        } catch (Exception e) { e.printStackTrace(); }
+                    }
                 } catch (Exception e) { e.printStackTrace(); }
+
             }
 
-            for(RadioListener i : _listeners)
-                if (title != null  && !title.isEmpty()) {
-                    i.onTrackTitleChanged(title, artist, boo);
+            for(RadioListener i : _listeners) {
+                if (title != null && !title.isEmpty()) {
+                    i.onTrackTitleChanged(title, artist);
                 }
+                i.onRadioChanged(boo);
+            }
 
             String notTitle = "> " + title;
             if (artist != null && !artist.isEmpty()) { notTitle += " (" + artist + ")"; }

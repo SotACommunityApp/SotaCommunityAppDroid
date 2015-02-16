@@ -17,9 +17,17 @@
     <dimen name="button_marginLeft">40dp</dimen>
 
     <!-- Radio Activity -->
-    <dimen name="radio_playing_fontSize">25sp</dimen>
+    <dimen name="radio_title_fontSize">30sp</dimen>
+    <dimen name="radio_url_fontSize">20sp</dimen>
+    <dimen name="txt_radio_state_fontSize">25sp</dimen>
+    <dimen name="txt_radio_title_fontSize">35sp</dimen>
+    <dimen name="txt_radio_artist_fontSize">28sp</dimen>
+
     <dimen name="radio_playing_marginTop">62dp</dimen>
     <dimen name="radio_seek_marginBottom">35dp</dimen>
+    <dimen name="radio_toggle_marginBottom">0dp</dimen>
+
+    <!-- News Activity -->
     <dimen name="news_list_margin">5dp</dimen>
     <dimen name="news_tag_textsize">10sp</dimen>
 

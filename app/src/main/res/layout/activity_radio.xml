@@ -26,9 +26,6 @@
         android:background="#ab000000"
         >
 
-            <!-- android:background="#3d23051a" -->
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +36,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/activity_title_marginTop"
                 android:textColor="#ffffff"
-                android:textSize="20sp"
+                android:textSize="@dimen/radio_title_fontSize"
                 android:textIsSelectable="false" />
 
             <TextView
@@ -47,6 +44,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/radio_url_text"
                 android:id="@+id/radiourl"
+                android:textSize="@dimen/radio_url_fontSize"
+                android:textColor="#fffff100"
+                android:textColorLink="#fffff100"
                 android:clickable="false"
                 android:autoLink="web"
                 android:gravity="center"
@@ -60,7 +60,7 @@
                 android:text="@string/radio_playing_text_off"
                 android:id="@+id/txt_radio_state"
                 android:textColor="#ffff0004"
-                android:textSize="15sp"
+                android:textSize="@dimen/txt_radio_state_fontSize"
                 android:layout_marginTop="@dimen/radio_playing_marginTop"
                 android:layout_below="@+id/radiourl"
                 android:layout_alignParentLeft="true"
@@ -70,10 +70,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Song Title"
+                android:text="@string/txt_radio_title_text"
                 android:id="@+id/txt_radio_title"
                 android:textColor="#ff65ccff"
-                android:textSize="25sp"
+                android:textSize="@dimen/txt_radio_title_fontSize"
                 android:layout_below="@+id/txt_radio_state"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -82,10 +82,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Song Artist"
+                android:text="@string/txt_radio_artist_text"
                 android:id="@+id/txt_radio_artist"
                 android:textColor="#ff5e58ff"
-                android:textSize="@dimen/radio_playing_fontSize"
+                android:textSize="@dimen/txt_radio_artist_fontSize"
                 android:layout_below="@+id/txt_radio_title"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -109,6 +109,7 @@
                 android:textOff="Play"
                 android:onClick="onButtonClicked"
                 android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/radio_toggle_marginBottom"
                 />
 
     </RelativeLayout>

@@ -31,5 +31,7 @@
     <string name="title_activity_map">Map</string>
     <string name="map_header_text">Map</string>
     <string name="map_desc">Novia Map</string>
+    <string name="txt_radio_title_text">Song Title</string>
+    <string name="txt_radio_artist_text">Song Artist</string>
 
 </resources>
