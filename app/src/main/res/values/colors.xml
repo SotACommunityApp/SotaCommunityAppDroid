@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<color name="divider_color">#532313</color>
-<color name="news_selector_color">#ff90c7ff</color>
+    <color name="divider_color">#532313</color>
+    <color name="news_selector_color">#ff90c7ff</color>
+
+    <color name="radio_playing_color_on">#FF15C610</color>
+    <color name="radio_playing_color_off">#FFFF0004</color>
 
 </resources>

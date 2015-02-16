@@ -7,6 +7,7 @@ package com.sotacommunityapp.sotacommunityapp;
         import android.os.IBinder;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
+        import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
@@ -25,12 +26,16 @@ package com.sotacommunityapp.sotacommunityapp;
 public class RadioActivity extends ActionBarActivity implements RadioListener {
 
     /*Inject our Views*/
-    @InjectView(R.id.txt_radio_song_title)
-    TextView _txtSongTitle;
+    @InjectView(R.id.txt_radio_state)
+        TextView _txtRadioState;
+    @InjectView(R.id.txt_radio_title)
+        TextView _txtRadioTitle;
+    @InjectView(R.id.txt_radio_artist)
+        TextView _txtRadioArtist;
     @InjectView(R.id.btn_toggle_play)
-    ToggleButton _btnPlayStop;
+        ToggleButton _btnPlayStop;
     @InjectView(R.id.slider_volume)
-    SeekBar _volumeSeekbar;
+        SeekBar _volumeSeekbar;
 
     /*Music service refrence*/
     private RadioService _radioService;
@@ -52,7 +57,6 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -60,6 +64,9 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         setContentView(R.layout.activity_radio);
         /*All you need to do to setup Butterknife*/
         ButterKnife.inject(this);
+        _txtRadioTitle.setText("");
+        _txtRadioArtist.setText("");
+
         /*Spefically request the service to start to ensure it's not tied this this activity*/
         getApplicationContext().startService(new Intent(this,RadioService.class));
         bindService();
@@ -73,14 +80,10 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
     }
     @Override
@@ -90,12 +93,11 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         unBindService();
     }
 
-
     void bindService() {
         bindService(new Intent(this,RadioService.class),_connection, Context.BIND_AUTO_CREATE);
         _bound = true;
-
     }
+
     void unBindService() {
         if(_bound){
             _radioService.removeListener(this);
@@ -104,10 +106,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         }
     }
 
-
-
     public void onButtonClicked(View v) {
-
         if(!_bound) {
             bindService();
             return;
@@ -116,12 +115,10 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
             bindService();
             return;
         }
-
         if(_radioService.isPlaying())
             _radioService.Stop();
         else{
             _radioService.Play();
-
         }
 
     }
@@ -148,13 +145,29 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
     }
 
     @Override
-    public void onTrackTitleChanged(final String title) {
+    public void onTrackTitleChanged(final String title, final String artist, final boolean state) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                _txtSongTitle.setText(title);
+                if (_txtRadioTitle.getText() != title) {
+                    _txtRadioTitle.setText(title);
+                }
+                if (_txtRadioArtist.getText() != artist) {
+                    _txtRadioArtist.setText(artist);
+                }
+                if (state) {
+                    Log.e("Playing", _txtRadioState.getText().toString());
+                    if (_txtRadioState.getText() != "@string/radio_playing_text_on") {
+                        _txtRadioState.setText(R.string.radio_playing_text_on);
+                        _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_on));
+                    }
+                } else {
+                    if (_txtRadioState.getText() != "@string/radio_playing_text_off") {
+                        _txtRadioState.setText(R.string.radio_playing_text_off);
+                        _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_off));
+                    }
+                }
             }
         });
-
     }
 }
