@@ -156,13 +156,12 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
                     _txtRadioArtist.setText(artist);
                 }
                 if (state) {
-                    Log.e("Playing", _txtRadioState.getText().toString());
-                    if (_txtRadioState.getText() != "@string/radio_playing_text_on") {
+                    if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_on)) {
                         _txtRadioState.setText(R.string.radio_playing_text_on);
                         _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_on));
                     }
                 } else {
-                    if (_txtRadioState.getText() != "@string/radio_playing_text_off") {
+                    if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_off)) {
                         _txtRadioState.setText(R.string.radio_playing_text_off);
                         _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_off));
                     }
