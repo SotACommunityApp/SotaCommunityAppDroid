@@ -17,13 +17,23 @@
         android:visibility="visible"
         android:contentDescription="@string/image_desc_pipes" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/foreground_frame"
+        android:src="@drawable/clockpunk_frame_interior"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:visibility="visible"
+        android:contentDescription="@string/image_desc_frame" />
+ 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:padding="@dimen/frame_padding"
         android:layout_margin="@dimen/frame_margin"
         android:gravity="center_horizontal"
-        android:background="#ab000000"
         >
 
             <TextView
@@ -113,16 +123,5 @@
                 />
 
     </RelativeLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/foreground_frame"
-        android:src="@drawable/clockpunk_frame"
-        android:scaleType="fitXY"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:visibility="visible"
-        android:contentDescription="@string/image_desc_frame" />
 
 </RelativeLayout>

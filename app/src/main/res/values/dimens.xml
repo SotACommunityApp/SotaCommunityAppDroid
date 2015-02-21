@@ -7,6 +7,8 @@
 
     <dimen name="frame_padding">50dp</dimen>
     <dimen name="frame_margin">35dp</dimen>
+    <dimen name="frame_interior_padding">35dp</dimen>
+    <dimen name="frame_interior_margin">35dp</dimen>
 
     <!-- Button Layouts -->
     <dimen name="button_marginTop">15dp</dimen>

@@ -7,6 +7,8 @@
 
     <dimen name="frame_padding">40dp</dimen>
     <dimen name="frame_margin">45dp</dimen>
+    <dimen name="frame_interior_padding">30dp</dimen>
+    <dimen name="frame_interior_margin">45dp</dimen>
 
     <dimen name="gears_marginTop">210dp</dimen>
     <dimen name="gears_paddingRight">65dp</dimen>
