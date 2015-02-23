@@ -2,6 +2,7 @@ package com.sotacommunityapp.sotacommunityapp;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -50,6 +51,8 @@ public class CalendarActivity extends Activity {
             loading.setVisibility(View.GONE);
             CalendarActivity.this.loading.setProgress(100);
             super.onPageFinished(view, url);
+            cWebView = (WebView) findViewById(R.id.calcWebView);
+            cWebView.setBackgroundColor(Color.WHITE);
         }
 
         @Override
