@@ -215,6 +215,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
                 } else {
                     outMd = metaData[0];
                 }
+                outMd = metaData[0];
 
                 Log.w("Chosen Song", ": " + outMd);
                 mdIs.close();

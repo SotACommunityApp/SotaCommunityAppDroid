@@ -18,8 +18,8 @@
     <string name="events_header_text">Events</string>
     <string name="image_desc_frame">FrameBorder</string>
     <string name="image_desc_pipes">BackgroundPipes</string>
-    <string name="radio_url_text">www.avatarsradio.com</string>
-    <string name="radio_playing_text_off">RADIO OFF</string>
+    <string name="radio_url_text">Radio thanks to www.avatarsradio.com</string>
+    <string name="radio_playing_text_off">Stopped...</string>
     <string name="radio_playing_text_on">Now Playing:</string>
     <string name="button1_desc_text">Avatars Radio</string>
     <string name="button2_desc_text">SOTA WIKI</string>

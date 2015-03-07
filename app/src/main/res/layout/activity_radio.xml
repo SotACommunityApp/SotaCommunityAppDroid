@@ -27,7 +27,18 @@
         android:adjustViewBounds="true"
         android:visibility="visible"
         android:contentDescription="@string/image_desc_frame" />
- 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/foreground_screen"
+        android:src="@drawable/clockpunk_screen"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:visibility="visible"
+        android:contentDescription="@string/image_desc_frame" />
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -36,47 +47,73 @@
         android:gravity="center_horizontal"
         >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/radio_header_text"
-                android:id="@+id/header"
-                android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/activity_title_marginTop"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/radio_title_fontSize"
-                android:textIsSelectable="false" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/radio_url_text"
-                android:id="@+id/radiourl"
-                android:textSize="@dimen/radio_url_fontSize"
-                android:textColor="#fffff100"
-                android:textColorLink="#fffff100"
-                android:clickable="false"
-                android:autoLink="web"
-                android:gravity="center"
-                android:layout_below="@+id/header"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/btn_toggle_play"
+            android:onClick="onButtonClicked"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_playing_text_off"
                 android:id="@+id/txt_radio_state"
-                android:textColor="#ffff0004"
+                android:textColor="#ffffffff"
                 android:textSize="@dimen/txt_radio_state_fontSize"
                 android:layout_marginTop="@dimen/radio_playing_marginTop"
-                android:layout_below="@+id/radiourl"
+                android:layout_below="@+id/btn_toggle_play"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_radio_title_text"
+                android:id="@+id/txt_radio_title"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/txt_radio_title_fontSize"
+                android:layout_below="@+id/txt_radio_state"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:gravity="center"/>
 
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_url_text"
+                android:id="@+id/header"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:autoLink="web"
+                android:textColor="#ffffff"
+                android:textColorLink="#fffff100"
+                android:textSize="@dimen/radio_url_fontSize"
+                android:textIsSelectable="false"
+                android:layout_above="@+id/slider_volume"
+                android:layout_marginBottom="@dimen/radio_toggle_marginBottom"
+                />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/slider_volume"
+                android:progress="50"
+                android:layout_above="@+id/btn_toggle_play"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:theme="@style/radio"
+
+                />
+
+
+        <!--
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,26 +138,21 @@
                 android:layout_alignParentStart="true"
                 android:gravity="center"/>
 
-            <SeekBar
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/slider_volume"
-                android:progress="50"
-                android:layout_above="@+id/btn_toggle_play"
+                android:text="@string/radio_url_text"
+                android:id="@+id/radiourl"
+                android:textSize="@dimen/radio_url_fontSize"
+                android:textColor="#fffff100"
+                android:textColorLink="#fffff100"
+                android:clickable="false"
+                android:autoLink="web"
+                android:gravity="center"
+                android:layout_below="@+id/header"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="@dimen/radio_seek_marginBottom" />
-
-            <ToggleButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_toggle_play"
-                android:textOn="Stop"
-                android:textOff="Play"
-                android:onClick="onButtonClicked"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/radio_toggle_marginBottom"
-                />
+                android:layout_alignParentStart="true" />
+-->
 
     </RelativeLayout>
 

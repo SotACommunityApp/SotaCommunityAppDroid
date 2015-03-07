@@ -17,20 +17,6 @@
         android:visibility="visible"
         android:contentDescription="@string/image_desc_pipes" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/background_gears"
-        android:src="@drawable/clockpunk_gears"
-        android:scaleType="fitXY"
-        android:visibility="visible"
-        android:contentDescription="@string/image_desc_gears"
-        android:layout_marginTop="@dimen/gears_marginTop"
-        android:paddingRight="@dimen/gears_paddingRight"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

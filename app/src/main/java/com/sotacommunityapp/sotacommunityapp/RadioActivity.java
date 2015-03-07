@@ -13,6 +13,7 @@ package com.sotacommunityapp.sotacommunityapp;
         import android.view.View;
         import android.view.Window;
         import android.widget.SeekBar;
+        import android.widget.Switch;
         import android.widget.TextView;
         import android.widget.ToggleButton;
         import com.sotacommunityapp.sotacommunityapp.Radio.RadioListener;
@@ -30,10 +31,12 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         TextView _txtRadioState;
     @InjectView(R.id.txt_radio_title)
         TextView _txtRadioTitle;
+    /*
     @InjectView(R.id.txt_radio_artist)
         TextView _txtRadioArtist;
+    */
     @InjectView(R.id.btn_toggle_play)
-        ToggleButton _btnPlayStop;
+        Switch _btnPlayStop;
     @InjectView(R.id.slider_volume)
         SeekBar _volumeSeekbar;
 
@@ -164,12 +167,21 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (_txtRadioTitle.getText() != title) {
-                    _txtRadioTitle.setText(title);
+                String fullTitle = "";
+                if (!artist.trim().isEmpty()) {
+                    fullTitle = title + " - " + artist;
+                } else if (!title.trim().isEmpty()) {
+                    fullTitle = title;
                 }
+                if (_txtRadioTitle.getText() != fullTitle) {
+                    _txtRadioTitle.setText(fullTitle);
+                }
+                /*
                 if (_txtRadioArtist.getText() != artist) {
                     _txtRadioArtist.setText(artist);
                 }
+                */
+
             }
         });
     }
