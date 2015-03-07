@@ -29,6 +29,7 @@
     <!-- News Activity -->
     <dimen name="news_list_margin">5dp</dimen>
     <dimen name="news_tag_textsize">10sp</dimen>
+    <dimen name="webview_margin">20dp</dimen>
 
 
 </resources>

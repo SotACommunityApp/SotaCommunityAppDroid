@@ -5,24 +5,25 @@
     tools:context="com.sotacommunityapp.sotacommunityapp.CalendarActivity"
     android:background="#000000">
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/background_pipes"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/clockpunk_background"
-        android:scaleType="fitXY"
-        android:visibility="visible"
-        android:contentDescription="@string/image_desc_pipes" />
-
     <WebView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/calcWebView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/webview_margin"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/foreground_frame"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/clockpunk_frame_large"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        android:contentDescription="@string/image_desc_frame" />
 
     <ProgressBar
         android:id="@+id/webloading"
