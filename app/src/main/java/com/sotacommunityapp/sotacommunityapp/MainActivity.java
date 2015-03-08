@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -53,13 +53,17 @@ public class MainActivity extends ActionBarActivity {
         startActivity(new Intent(MainActivity.this, IrcActivity.class));
     }
     public void wikiButtonClick(View view) {
-        startActivity(new Intent(MainActivity.this, WikiActivity.class));
+        // startActivity(new Intent(MainActivity.this, WikiActivity.class));
+        Toast.makeText(getApplicationContext(), "For Future Development...",
+                Toast.LENGTH_SHORT).show();
     }
     public void calendarButtonClick(View view) {
         startActivity(new Intent(MainActivity.this, CalendarActivity.class));
     }
     public void mapButtonClick(View view) {
-        startActivity(new Intent(MainActivity.this, MapActivity.class));
+        // startActivity(new Intent(MainActivity.this, MapActivity.class));
+        Toast.makeText(getApplicationContext(), "For Future Development...",
+                Toast.LENGTH_SHORT).show();
     }
 
 }
