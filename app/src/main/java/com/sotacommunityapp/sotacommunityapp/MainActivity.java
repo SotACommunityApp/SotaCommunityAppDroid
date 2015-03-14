@@ -65,5 +65,19 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "For Future Development...",
                 Toast.LENGTH_SHORT).show();
     }
+    public void secretButtonClick(View view) {
+        // startActivity(new Intent(MainActivity.this, MapActivity.class));
+        Toast.makeText(getApplicationContext(), "The SOTA Community App Team:\n" +
+                        "\n" +
+                        "Matterio (Mastermind/iOS)\n" +
+                        "Bubonic (Artwork/Design)\n" +
+                        "Belgeran (iOS/Android)\n" +
+                        "Umbrae (Android)\n" +
+                        "\n" +
+                        "Thanks to Lord British and his team at Portalarium " +
+                        "for creating the worlds for which this community thrives.\n" +
+                        "\nhttps://www.shroudoftheavatar.com/",
+                Toast.LENGTH_LONG).show();
+    }
 
 }

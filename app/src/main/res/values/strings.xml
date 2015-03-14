@@ -33,5 +33,6 @@
     <string name="map_desc">Novia Map</string>
     <string name="txt_radio_title_text">Song Title</string>
     <string name="txt_radio_artist_text">Song Artist</string>
+    <string name="radio_patreon_text">Please support Avatars Radio</string>
 
 </resources>

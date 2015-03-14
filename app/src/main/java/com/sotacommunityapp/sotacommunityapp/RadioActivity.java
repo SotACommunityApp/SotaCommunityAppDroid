@@ -4,6 +4,7 @@ package com.sotacommunityapp.sotacommunityapp;
         import android.content.Context;
         import android.content.Intent;
         import android.content.ServiceConnection;
+        import android.net.Uri;
         import android.os.IBinder;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
@@ -203,5 +204,11 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
                 }
             }
         });
+    }
+
+    public void patreonButtonClick(View view) {
+        Uri uri = Uri.parse("https://www.patreon.com/user?u=272464");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }
