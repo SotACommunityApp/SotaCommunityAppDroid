@@ -177,7 +177,12 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
                 URL updateURL = new URL(scURL);
                 URLConnection conn = updateURL.openConnection();
                 conn.setRequestProperty("Icy-MetaData", "1");
-                int interval = Integer.valueOf(conn.getHeaderField("icy-metaint")); // You can get more headers if you wish. There is other useful data.
+                int interval;
+                try {
+                    interval = Integer.valueOf(conn.getHeaderField("icy-metaint")); // You can get more headers if you wish. There is other useful data.
+                } catch (NumberFormatException e) {
+                    interval = 0;
+                }
                 mdIs = conn.getInputStream();
 
                 int skipped = 0;
