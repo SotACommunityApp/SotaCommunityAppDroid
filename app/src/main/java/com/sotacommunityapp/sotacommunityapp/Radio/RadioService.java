@@ -173,6 +173,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         public void run() {
             String outMd = null;
             Log.w("Radio Data", "Running");
+            boolean errIcy = false;
             try {
                 URL updateURL = new URL(scURL);
                 URLConnection conn = updateURL.openConnection();
@@ -181,6 +182,8 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
                 try {
                     interval = Integer.valueOf(conn.getHeaderField("icy-metaint")); // You can get more headers if you wish. There is other useful data.
                 } catch (NumberFormatException e) {
+                    Log.e("Icy Not Found", "value(" + conn.getHeaderField("icy-metaint") + ")");
+                    errIcy = true;
                     interval = 0;
                 }
                 mdIs = conn.getInputStream();
@@ -260,6 +263,12 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
 
             }
 
+            // For Unsupported Devices
+            if (errIcy) {
+                title = "Song Information Unavailable";
+                artist = "";
+            }
+            
             for(RadioListener i : _listeners) {
                 if (title != null && !title.isEmpty()) {
                     i.onTrackTitleChanged(title, artist);

@@ -174,6 +174,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
                 } else if (!title.trim().isEmpty()) {
                     fullTitle = title;
                 }
+                Log.w("Set Song Title", ": " + fullTitle);
                 if (_txtRadioTitle.getText() != fullTitle) {
                     _txtRadioTitle.setText(fullTitle);
                 }
