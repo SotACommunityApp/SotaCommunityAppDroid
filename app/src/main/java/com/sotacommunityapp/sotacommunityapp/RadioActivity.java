@@ -8,6 +8,7 @@ package com.sotacommunityapp.sotacommunityapp;
         import android.os.IBinder;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
+        import android.support.v7.widget.SwitchCompat;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
@@ -37,7 +38,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         TextView _txtRadioArtist;
     */
     @InjectView(R.id.btn_toggle_play)
-        Switch _btnPlayStop;
+    SwitchCompat _btnPlayStop;
     @InjectView(R.id.slider_volume)
         SeekBar _volumeSeekbar;
 
