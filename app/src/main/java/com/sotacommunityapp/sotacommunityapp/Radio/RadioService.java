@@ -16,6 +16,7 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.sotacommunityapp.sotacommunityapp.R;
 import com.sotacommunityapp.sotacommunityapp.RadioActivity;
@@ -78,23 +79,36 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void Play() {
-        try { _mediaPlayer.setDataSource(this, Uri.parse(scURL));
-        } catch (IOException e) { e.printStackTrace(); }
-        _mediaPlayer.prepareAsync();
-        _wifiLock.acquire();
-        _timer = new Timer();
-        _timer.schedule(new MetaDataTask(),0,10000);
-    }
-
-    public void Stop() {
-        if(_mediaPlayer.isPlaying()) {
-            _mediaPlayer.stop();
+        try {
+            _mediaPlayer.setDataSource(this, Uri.parse(scURL));
+            _mediaPlayer.prepareAsync();
+            _wifiLock.acquire();
+            _timer = new Timer();
+            _timer.schedule(new MetaDataTask(),0,10000);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Unable to Start Radio",
+                    Toast.LENGTH_SHORT).show();
             for(RadioListener i : _listeners) {
                 i.onTrackTitleChanged("", "");
                 i.onRadioChanged(false);
             }
             showNotification("] Not Playing");
+            _mediaPlayer.reset();
+            _timer.cancel();
+            _wifiLock.release();
         }
+    }
+
+    public void Stop() {
+        if(_mediaPlayer.isPlaying()) {
+            _mediaPlayer.stop();
+        }
+        for(RadioListener i : _listeners) {
+            i.onTrackTitleChanged("", "");
+            i.onRadioChanged(false);
+        }
+        showNotification("] Not Playing");
         _mediaPlayer.reset();
         _timer.cancel();
         _wifiLock.release();
