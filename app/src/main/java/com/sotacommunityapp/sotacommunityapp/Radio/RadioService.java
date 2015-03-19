@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Umbrae revision 15/02/2015.
  * Created by James Kidd on 7/02/2015.
  */
-
+@Deprecated
 public class RadioService extends Service implements MediaPlayer.OnPreparedListener, RadioInterface {
 
     private static final String scURL = "http://cp5.digistream.info:14102";
@@ -84,14 +84,14 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
             _mediaPlayer.prepareAsync();
             _wifiLock.acquire();
             _timer = new Timer();
-            _timer.schedule(new MetaDataTask(),0,10000);
+            _timer.schedule(new MetaDataTask(), 0, 10000);
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Unable to Start Radio",
                     Toast.LENGTH_SHORT).show();
             for(RadioListener i : _listeners) {
                 i.onTrackTitleChanged("", "");
-                i.onRadioChanged(false);
+                //i.onRadioChanged(false);
             }
             showNotification("] Not Playing");
             _mediaPlayer.reset();
@@ -106,7 +106,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         }
         for(RadioListener i : _listeners) {
             i.onTrackTitleChanged("", "");
-            i.onRadioChanged(false);
+            //i.onRadioChanged(false);
         }
         showNotification("] Not Playing");
         _mediaPlayer.reset();
@@ -287,7 +287,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
                 if (title != null && !title.isEmpty()) {
                     i.onTrackTitleChanged(title, artist);
                 }
-                i.onRadioChanged(boo);
+                //i.onRadioChanged(boo);
             }
 
             String notTitle = "> " + title;

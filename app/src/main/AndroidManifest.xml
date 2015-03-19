@@ -77,6 +77,7 @@
                 android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
         </activity>
         <service android:name=".Radio.RadioService" />
+        <service android:name=".Radio.RadioServiceRaw" />
     </application>
 
 </manifest>
