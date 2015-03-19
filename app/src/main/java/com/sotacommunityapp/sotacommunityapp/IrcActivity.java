@@ -2,6 +2,8 @@ package com.sotacommunityapp.sotacommunityapp;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,7 +37,8 @@ public class IrcActivity extends Activity {
         WebSettings webSettings = iWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        iWebView.loadUrl("https://kiwiirc.com/client/irc.ultimacodex.com/?nick=Citizen?&theme=mini#sota");
+        String name = PreferenceManager.getDefaultSharedPreferences(this).getString("irc_username","Citizen?");
+        iWebView.loadUrl("https://kiwiirc.com/client/irc.ultimacodex.com/?nick="+ name + "&theme=mini#sota");
         IrcActivity.this.loading.setProgress(0);
 
     }
