@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.IBinder;
@@ -37,7 +36,7 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
     private static String  TAG = "RADIO";
 
     public enum RadioState {
-        Loading,
+        Buffering,
         Playing,
         Stopped,
         Error
@@ -81,7 +80,8 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
             _mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             _mediaPlayer.setOnPreparedListener(this);
             _mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-            _mediaPlayer.setVolume(.5f,.5f);
+            _mediaPlayer.setVolume(.5f, .5f);
+            _mediaPlayer.setOnErrorListener(this);
 
 
         }
@@ -114,7 +114,8 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
         Log.e(TAG,"Err: " + what + " " + extra);
         _state = RadioState.Error;
         stateChanged(_state);
-        metaChanged("Error:","Media Error");
+        metaChanged("MediaPlayer Error", "");
+        _mediaPlayer.reset();
         return false;
     }
 
@@ -140,7 +141,7 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
             }
             _mediaThread = new Thread(new SocketServerThread());
             _mediaThread.start();
-            _state = RadioState.Loading;
+            _state = RadioState.Buffering;
             stateChanged(_state);
             if(!_wifiLock.isHeld())
                 _wifiLock.acquire();
@@ -172,8 +173,10 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
     @Override
     public boolean isPlaying() {
         // Handle edge case where radio is in load process.
-        if(_state == RadioState.Loading)
+        if(_state == RadioState.Buffering)
             return true;
+        if(_state == RadioState.Error)
+            return false;
         return _mediaPlayer.isPlaying();
     }
 
@@ -229,10 +232,11 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
         @Override
         public void run() {
             try {
+                /*Setup socket listening on local port 2053*/
                 if(serverSocket == null)
                     serverSocket = new ServerSocket(SocketServerPORT);
 
-
+                /*Connect to shoutcast*/
                 Socket conn = new Socket(new URL(scURL).getHost(),new URL(scURL).getPort());
                 OutputStream os = conn.getOutputStream();
                 //Generate the HTTP request and send via socket
@@ -242,20 +246,23 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
                         "Icy-MetaData: 1 \r\n" +
                         "Connection: keep-alive\r\n\r\n";
                 os.write(req.getBytes());
-
+                /*Reset and prepare mediaplayer*/
                 _mediaPlayer.reset();
                 _mediaPlayer.setDataSource("http://localhost:2053");
                 _mediaPlayer.prepareAsync();
 
+                /*Accept the connection from mediaplayer*/
                 Socket localServerSocket = serverSocket.accept();
                 Log.d(TAG, "Accepted Con on 2053");
                 OutputStream localServerOut = localServerSocket.getOutputStream();
+
+                /*Parse interval from HTTP header*/
                 int interval = parseHeaders(conn.getInputStream());
 
-                //int interval = 32768;// TODO parse this from the socket stream its among the first data sent.
-
+                /*While connected and the radio hasnt been stopped or errored loop*/
                 while(conn.getInputStream() != null && _state != RadioState.Stopped && _state != RadioState.Error) {
                     int bytesRead = 0,total = 0;
+                    /*Forward data from SC to local socket, and parse out metadata*/
                     while ((bytesRead = conn.getInputStream().read(buffer)) != -1 && _state != RadioState.Stopped && _state != RadioState.Error) {
                         localServerOut.write(buffer, 0, bytesRead);
                         total ++;
@@ -276,7 +283,8 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
 
             } catch (Exception e) {
                 Log.e(TAG,"Con died??? " + e.getMessage());
-
+                metaChanged("Connection Lost", "");
+                stateChanged(RadioState.Error);
 
             }
 

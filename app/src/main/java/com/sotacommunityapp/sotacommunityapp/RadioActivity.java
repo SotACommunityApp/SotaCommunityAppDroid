@@ -101,7 +101,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
             //_radioService.addListener(this);
         } else {
             onRadioStateChanged(RadioServiceRaw.RadioState.Stopped);
-            onTrackTitleChanged("Stopped", "");
+            //onTrackTitleChanged("Stopped", "");
         }
 
     }
@@ -139,12 +139,12 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
             _radioService.Stop();
             _playing = false;
             //onRadioChanged(false);
-            onTrackTitleChanged("Stopping...", "");
+            //onTrackTitleChanged("Stopping...", "");
         } else {
             _radioService.Play();
             _playing = true;
             //onRadioChanged(true);
-            onTrackTitleChanged("Loading...","");
+           // onTrackTitleChanged("Buffering...","");
         }
 
     }
@@ -218,22 +218,30 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
     }*/
 
     @Override
-    public void onRadioStateChanged(RadioServiceRaw.RadioState state) {
+    public void onRadioStateChanged(final RadioServiceRaw.RadioState state) {
         Log.d("state",state.toString());
-        if (state == RadioServiceRaw.RadioState.Playing) {
-            if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_on)) {
-                _txtRadioState.setText(R.string.radio_playing_text_on);
-                _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_on));
-            }
-        } else if(state == RadioServiceRaw.RadioState.Stopped) {
-            if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_off)) {
-                _txtRadioState.setText(R.string.radio_playing_text_off);
-                _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_off));
-            }
-        }
-        else {
-            _txtRadioState.setText(state.toString());
-        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (state == RadioServiceRaw.RadioState.Playing) {
+                    if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_on)) {
+                        _txtRadioState.setText(R.string.radio_playing_text_on);
+                        _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_on));
+                        _btnPlayStop.setChecked(true);
+                    }
+                } else if (state == RadioServiceRaw.RadioState.Stopped) {
+                    if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_off)) {
+                        _txtRadioState.setText(R.string.radio_playing_text_off);
+                        _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_off));
+                        onTrackTitleChanged("","");
+                        _btnPlayStop.setChecked(false);
+                    }
+                } else {
+                    if(state == RadioServiceRaw.RadioState.Error)
+                        _btnPlayStop.setChecked(false);
+                    _txtRadioState.setText(state.toString());
+                }
+            }});
     }
 
     public void patreonButtonClick(View view) {
