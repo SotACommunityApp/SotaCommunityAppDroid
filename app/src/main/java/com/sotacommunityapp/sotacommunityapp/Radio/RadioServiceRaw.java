@@ -35,8 +35,13 @@ import java.util.List;
 /**
  * Created by James Kidd on 17/03/2015.
  */
-public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedListener,MediaPlayer.OnErrorListener, RadioInterface {
+public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedListener,MediaPlayer.OnErrorListener,MediaPlayer.OnBufferingUpdateListener, RadioInterface {
     private static String  TAG = "RADIO";
+
+    @Override
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
+        Log.d("MP",i+"");
+    }
 
     public enum RadioState {
         Buffering,
@@ -85,6 +90,7 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
             _mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
             _mediaPlayer.setVolume(.5f, .5f);
             _mediaPlayer.setOnErrorListener(this);
+            _mediaPlayer.setOnBufferingUpdateListener(this);
 
 
         }
@@ -257,25 +263,28 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
                 /*Accept the connection from mediaplayer*/
                 Socket localServerSocket = serverSocket.accept();
                 Log.d(TAG, "Accepted Con on 2053");
-                BufferedOutputStream localServerOut = new BufferedOutputStream(localServerSocket.getOutputStream());
+                /*MUST have atleast buffer of 1024, higher may be better*/
+                BufferedOutputStream localServerOut = new BufferedOutputStream(localServerSocket.getOutputStream(),1024);
 
                 BufferedInputStream scInput = new BufferedInputStream(conn.getInputStream());
                 /*Parse interval from HTTP header*/
-                int interval = parseHeaders(scInput);
-
+                int interval = parseHeaders(scInput,localServerOut);
+                int bytesRead = 0,total = 0;
                 /*While connected and the radio hasnt been stopped or errored loop*/
                 while(scInput != null && _state != RadioState.Stopped && _state != RadioState.Error) {
-                    int bytesRead = 0,total = 0;
+
                     /*Forward data from SC to local socket, and parse out metadata*/
                     while ((bytesRead = scInput.read(buffer)) != -1 && _state != RadioState.Stopped && _state != RadioState.Error) {
                         localServerOut.write(buffer, 0, bytesRead);
-                        localServerOut.flush();
+                        //localServerOut.flush();
+
                         total ++;
                         if(total == interval){
                             String meta = readMeta(scInput);
                             if(meta != null)
                                 metaChanged(meta.split("-")[0],meta.split("-")[1]);
                             total = 0;
+
                         }
                     }
 
@@ -315,12 +324,14 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
 
             return null;
         }
-        private int parseHeaders(BufferedInputStream inputStream) throws IOException {
+        private int parseHeaders(BufferedInputStream inputStream, BufferedOutputStream localServerOut) throws IOException {
             byte[] buffer = new byte[32768];
             int cnt = 0;
             while(!new String(buffer).contains("\r\n\r\n")){
                 inputStream.read(buffer,cnt++,1);
             }
+            localServerOut.write(buffer,0,cnt);
+            localServerOut.flush();
             String[] splits = new String(buffer).split("\r\n");
             for(String s : splits)
                 if(s.contains("icy-metaint"))
