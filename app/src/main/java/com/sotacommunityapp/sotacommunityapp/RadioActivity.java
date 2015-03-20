@@ -20,6 +20,8 @@ package com.sotacommunityapp.sotacommunityapp;
         import android.widget.ToggleButton;
         import com.sotacommunityapp.sotacommunityapp.Radio.RadioListener;
         import com.sotacommunityapp.sotacommunityapp.Radio.RadioService;
+        import com.sotacommunityapp.sotacommunityapp.Radio.RadioServiceRaw;
+
         import butterknife.ButterKnife;
         import butterknife.InjectView;
 
@@ -38,12 +40,12 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         TextView _txtRadioArtist;
     */
     @InjectView(R.id.btn_toggle_play)
-    SwitchCompat _btnPlayStop;
+    ToggleButton _btnPlayStop;
     @InjectView(R.id.slider_volume)
         SeekBar _volumeSeekbar;
 
     /*Music service refrence*/
-    private RadioService _radioService;
+    private RadioServiceRaw _radioService;
     private boolean _bound;
     private static boolean _playing = false;
 
@@ -51,8 +53,9 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
     private ServiceConnection _connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            _radioService = ((RadioService.LocalBinder)service).getService();
+            _radioService = ((RadioServiceRaw.LocalBinder)service).getService();
             _radioService.addListener(RadioActivity.this);
+            onTrackTitleChanged(_radioService.CurrentTitle,_radioService.CurrentArtist);
             if(_radioService.isPlaying())
                 _btnPlayStop.toggle();
         }
@@ -72,29 +75,33 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         ButterKnife.inject(this);
 
         /*Spefically request the service to start to ensure it's not tied this this activity*/
-        getApplicationContext().startService(new Intent(this,RadioService.class));
+        getApplicationContext().startService(new Intent(this,RadioServiceRaw.class));
         bindService();
         /*Setup vol control*/
         _volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(_radioService != null)
-                    _radioService.setVolume((float)progress/100);
+                if (_radioService != null)
+                    _radioService.setVolume((float) progress / 100);
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         if (_playing) {
-            onRadioChanged(true);
-            onTrackTitleChanged("Loading...","");
+            //onRadioChanged(true);
+            onRadioStateChanged(RadioServiceRaw.RadioState.Playing);
+
+            //_radioService.addListener(this);
         } else {
-            onRadioChanged(false);
-            onTrackTitleChanged("", "");
+            onRadioStateChanged(RadioServiceRaw.RadioState.Stopped);
+            //onTrackTitleChanged("Stopped", "");
         }
 
     }
@@ -107,7 +114,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
     }
 
     void bindService() {
-        bindService(new Intent(this,RadioService.class),_connection, Context.BIND_AUTO_CREATE);
+        bindService(new Intent(this,RadioServiceRaw.class),_connection, Context.BIND_AUTO_CREATE);
         _bound = true;
     }
 
@@ -131,13 +138,13 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
         if(_radioService.isPlaying()) {
             _radioService.Stop();
             _playing = false;
-            onRadioChanged(false);
-            onTrackTitleChanged("", "");
+            //onRadioChanged(false);
+            //onTrackTitleChanged("Stopping...", "");
         } else {
             _radioService.Play();
             _playing = true;
-            onRadioChanged(true);
-            onTrackTitleChanged("Loading...","");
+            //onRadioChanged(true);
+           // onTrackTitleChanged("Buffering...","");
         }
 
     }
@@ -166,6 +173,8 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
 
     @Override
     public void onTrackTitleChanged(final String title, final String artist) {
+        if(title == null || artist == null)
+            return;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -188,7 +197,7 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
             }
         });
     }
-    @Override
+    /*@Override
     public void onRadioChanged(final boolean state) {
         runOnUiThread(new Runnable() {
             @Override
@@ -206,6 +215,33 @@ public class RadioActivity extends ActionBarActivity implements RadioListener {
                 }
             }
         });
+    }*/
+
+    @Override
+    public void onRadioStateChanged(final RadioServiceRaw.RadioState state) {
+        Log.d("state",state.toString());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (state == RadioServiceRaw.RadioState.Playing) {
+                    if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_on)) {
+                        _txtRadioState.setText(R.string.radio_playing_text_on);
+                        _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_on));
+                        _btnPlayStop.setChecked(true);
+                    }
+                } else if (state == RadioServiceRaw.RadioState.Stopped) {
+                    if (_txtRadioState.getText() != getResources().getString(R.string.radio_playing_text_off)) {
+                        _txtRadioState.setText(R.string.radio_playing_text_off);
+                        _txtRadioState.setTextColor(getResources().getColor(R.color.radio_playing_color_off));
+                        onTrackTitleChanged("","");
+                        _btnPlayStop.setChecked(false);
+                    }
+                } else {
+                    if(state == RadioServiceRaw.RadioState.Error)
+                        _btnPlayStop.setChecked(false);
+                    _txtRadioState.setText(state.toString());
+                }
+            }});
     }
 
     public void patreonButtonClick(View view) {

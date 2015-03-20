@@ -8,6 +8,7 @@ public interface RadioInterface {
     public void setVolume(float vol);
     public void Play();
     public void Stop();
+    public boolean isPlaying();
     public void addListener(RadioListener listener);
     public void removeListener(RadioListener listener);
 }
