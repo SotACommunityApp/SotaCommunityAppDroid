@@ -16,6 +16,9 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.sotacommunityapp.sotacommunityapp.RadioActivity;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -254,20 +257,22 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
                 /*Accept the connection from mediaplayer*/
                 Socket localServerSocket = serverSocket.accept();
                 Log.d(TAG, "Accepted Con on 2053");
-                OutputStream localServerOut = localServerSocket.getOutputStream();
+                BufferedOutputStream localServerOut = new BufferedOutputStream(localServerSocket.getOutputStream());
 
+                BufferedInputStream scInput = new BufferedInputStream(conn.getInputStream());
                 /*Parse interval from HTTP header*/
-                int interval = parseHeaders(conn.getInputStream());
+                int interval = parseHeaders(scInput);
 
                 /*While connected and the radio hasnt been stopped or errored loop*/
-                while(conn.getInputStream() != null && _state != RadioState.Stopped && _state != RadioState.Error) {
+                while(scInput != null && _state != RadioState.Stopped && _state != RadioState.Error) {
                     int bytesRead = 0,total = 0;
                     /*Forward data from SC to local socket, and parse out metadata*/
-                    while ((bytesRead = conn.getInputStream().read(buffer)) != -1 && _state != RadioState.Stopped && _state != RadioState.Error) {
+                    while ((bytesRead = scInput.read(buffer)) != -1 && _state != RadioState.Stopped && _state != RadioState.Error) {
                         localServerOut.write(buffer, 0, bytesRead);
+                        localServerOut.flush();
                         total ++;
                         if(total == interval){
-                            String meta = readMeta(conn.getInputStream());
+                            String meta = readMeta(scInput);
                             if(meta != null)
                                 metaChanged(meta.split("-")[0],meta.split("-")[1]);
                             total = 0;
@@ -282,7 +287,7 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
                 }
 
             } catch (Exception e) {
-                Log.e(TAG,"Con died??? " + e.getMessage());
+                Log.e(TAG,"Con died??? " + e.getMessage() + e.getStackTrace());
                 metaChanged("Connection Lost", "");
                 stateChanged(RadioState.Error);
 
@@ -291,7 +296,7 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
         }
 
         /*Grabs*/
-        private String readMeta(InputStream in) throws IOException {
+        private String readMeta(BufferedInputStream in) throws IOException {
             int bytesToRead = in.read() * 16;
             if(bytesToRead == 0)
                 return null;
@@ -310,7 +315,7 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
 
             return null;
         }
-        private int parseHeaders(InputStream inputStream) throws IOException {
+        private int parseHeaders(BufferedInputStream inputStream) throws IOException {
             byte[] buffer = new byte[32768];
             int cnt = 0;
             while(!new String(buffer).contains("\r\n\r\n")){
