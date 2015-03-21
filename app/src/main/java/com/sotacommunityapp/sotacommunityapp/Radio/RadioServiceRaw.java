@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
@@ -276,7 +277,6 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
                     /*Forward data from SC to local socket, and parse out metadata*/
                     while ((bytesRead = scInput.read(buffer)) != -1 && _state != RadioState.Stopped && _state != RadioState.Error) {
                         localServerOut.write(buffer, 0, bytesRead);
-                        //localServerOut.flush();
 
                         total ++;
                         if(total == interval){
@@ -296,7 +296,7 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
                 }
 
             } catch (Exception e) {
-                Log.e(TAG,"Con died??? " + e.getMessage() + e.getStackTrace());
+                Log.e(TAG,"Con died: " + e.getMessage() + e.getStackTrace());
                 metaChanged("Connection Lost", "");
                 stateChanged(RadioState.Error);
 
@@ -304,8 +304,9 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
 
         }
 
-        /*Grabs*/
+        /*Grabs metadata from the stream*/
         private String readMeta(BufferedInputStream in) throws IOException {
+            /*First byte tells us metadata size*/
             int bytesToRead = in.read() * 16;
             if(bytesToRead == 0)
                 return null;
@@ -324,19 +325,27 @@ public class RadioServiceRaw extends Service implements MediaPlayer.OnPreparedLi
 
             return null;
         }
+
+        /*Parses the ICY-OK 200 header's
+        * MUST FORWARD TO MEDIAPLAYER */
         private int parseHeaders(BufferedInputStream inputStream, BufferedOutputStream localServerOut) throws IOException {
             byte[] buffer = new byte[32768];
             int cnt = 0;
             while(!new String(buffer).contains("\r\n\r\n")){
                 inputStream.read(buffer,cnt++,1);
             }
-            localServerOut.write(buffer,0,cnt);
-            localServerOut.flush();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                localServerOut.write(buffer,0,cnt);
+                localServerOut.flush();
+            }
+
             String[] splits = new String(buffer).split("\r\n");
             for(String s : splits)
                 if(s.contains("icy-metaint"))
                     return Integer.parseInt(s.split(":")[1]);
-
+            /*Parse failed take a stab at guessing the right metadata interval
+            * Valid time for our stream*/
             return 32768;
         }
 
