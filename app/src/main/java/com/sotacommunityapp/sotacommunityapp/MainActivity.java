@@ -53,13 +53,14 @@ public class MainActivity extends ActionBarActivity {
         startActivity(new Intent(MainActivity.this, RadioActivity.class));
     }
     public void ircButtonClick(View view) {
-        if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("open_external_irc",false)){
+       /* if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("open_external_irc",false)){
             String name = PreferenceManager.getDefaultSharedPreferences(this).getString("irc_username","Citizen?");
             String url = "https://kiwiirc.com/client/irc.ultimacodex.com/?nick="+ name + "&theme=mini#sota";
             openUrlInBrowser(url);
             return;
         }
-        startActivity(new Intent(MainActivity.this, IrcActivity.class));
+        startActivity(new Intent(MainActivity.this, IrcActivity.class));*/
+        startActivity(new Intent(MainActivity.this, IRCActivityNative.class));
     }
 
     private void openUrlInBrowser(String url) {

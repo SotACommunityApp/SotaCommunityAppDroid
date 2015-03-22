@@ -90,6 +90,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
         </activity>
+        <activity
+            android:name=".IRCActivityNative"
+            android:label="@string/title_activity_ircactivity_native"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sotacommunityapp.sotacommunityapp.MainActivity" />
+        </activity>
+
+        <service
+            android:name=".IRC.IRCService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
